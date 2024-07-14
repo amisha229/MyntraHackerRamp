@@ -30,7 +30,7 @@
         <li>Difficulty in discovering current trends and aesthetic styles, with many styles and pieces remaining undiscovered due to mainstream marketing.</li>
     </ul>
 <h2 id="solution">Solution</h2>
-    <h3>id="personalized-color-analysis">Personalized Color Analysis</h3>
+    <h3 id="personalized-color-analysis">Personalized Color Analysis</h3>
     <p>We integrate a feature that allows users to upload a photo or input details about their skin tone, hair color, and style preferences. Using AI-powered image analysis and color theory algorithms, we generate personalized color palettes and display these recommendations in the user's shopping interface for a customized experience.</p>
     <h3 id="guess-the-prize">Guess the Prize</h3>
     <p>This game allows users to guess the price of showcased products, rewarding correct guesses with Myntra Super Coins. By integrating this feature into the shopping website, users can accumulate points with each game. Myntra Insiders receive additional perks like exclusive deals and priority customer support, enhancing their shopping experience.</p>
