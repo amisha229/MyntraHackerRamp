@@ -1,4 +1,4 @@
-<h1>Myntra HackerRamp:WeForshe</h1>
+<h1>Myntra HackerRamp: WeForshe</h1>
 <p>Our project aims to solve a set of problem statemnets and come up with solutions for the same, all related to the public shopping platform Myntra.</p>
 <h2>Table of Contents</h2>
     <ul>
@@ -18,7 +18,7 @@
 <h2 id="team-members">Team Members</h2>
     <ul>
         <li>Amisha Singh - amisha229</li>
-        <li>Akriti Khetan - CupNoodles7</li>
+        <li>Akriti Khetan - cupnoodles7</li>
         <li>Swarneem Ishu - SwarneemIshu</li>
     </ul>
 
