@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kpop Basics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px 10px 10px 40px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: url('search-icon.png') no-repeat 10px center;
+            background-size: 20px;
+        }
+
+        .search-container input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-wrapper img {
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        .icon-label {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .introduction {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .introduction h1 {
+            font-size: 2.5em;
+        }
+
+        .introduction p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .breadcrumb {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        }
+
+        .filters, .product-listing-container {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1; /* Expand to fill available space */
+        }
+
+        .filters {
+            flex: 0 0 25%; /* Take 25% width on larger screens */
+            margin-bottom: 20px;
+        }
+
+        .filters h4, .sort-by h4 {
+            margin-top: 0;
+        }
+
+        .filters ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .filters ul li {
+            margin-bottom: 10px;
+        }
+
+        .filters label {
+            cursor: pointer;
+            display: block;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .filters input[type="checkbox"] {
+            position: absolute;
+            left: 0;
+            top: 3px;
+        }
+
+        .product-listing-container {
+            flex: 1; /* Expand to fill available space */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Prevent items from wrapping */
+            margin-bottom: 20px;
+        }
+
+        .product-listing {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping of product items */
+            gap: 20px;
+            padding-bottom: 20px;
+        }
+
+        .product-item {
+            flex: 0 0 calc(25% - 20px); /* Adjust width of each item */
+            max-width: calc(25% - 20px); /* Ensure items do not exceed this width */
+            border: 1px solid #ddd; /* Optional: Border style */
+            border-radius: 5px; /* Optional: Rounded corners */
+            overflow: hidden; /* Ensure content does not overflow */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for styling */
+            display: flex;
+            flex-direction: column; /* Ensure the items stack vertically */
+            justify-content: space-between; /* Space out the contents */
+            margin-bottom: 20px; /* Add margin bottom for spacing */
+            height: 450px; /* Fixed height to ensure enough space for content */
+        }
+
+        .product-item img {
+            width: 100%; /* Ensure image takes full width */
+            height: 250px; /* Set a fixed height for images */
+            object-fit: cover; /* Maintain aspect ratio while covering the area */
+        }
+
+        .product-details {
+            padding: 15px; /* Padding around product details */
+            text-align: center; /* Optional: Center align text */
+            flex-grow: 1; /* Allow details to expand */
+            display: flex; /* Flex display */
+            flex-direction: column; /* Stack contents vertically */
+            justify-content: space-between; /* Space out the contents */
+        }
+
+        .product-details h3 {
+            font-size: 1.2em; /* Adjust heading size */
+            margin-bottom: 10px; /* Optional: Margin below heading */
+            word-wrap: break-word; /* Ensure long text wraps */
+            max-height: 3em; /* Max height to ensure text does not overflow */
+            overflow: hidden; /* Hide overflow text */
+        }
+
+        .product-details p {
+            margin: 0; /* Remove default margin for paragraphs */
+            color: #666; /* Optional: Adjust text color */
+        }
+
+        .product-price {
+            color: #e74c3c; /* Optional: Adjust price color */
+            font-weight: bold; /* Optional: Make price text bold */
+            margin-top: 10px; /* Optional: Margin above price */
+        }
+
+        .sort-by {
+            flex: 0 0 25%; /* Take 25% width on larger screens */
+            margin-bottom: 20px;
+        }
+
+        .sort-by select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .filter-buttons button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <a href="index.html"><img src="logo.webp" alt="Logo"></a>
+        </div>
+        <nav>
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">Kids</a>
+            <a href="#">Home & Living</a>
+            <a href="#">Beauty</a>
+            <a href="#">Studio</a>
+        </nav>
+        <div class="search-container">
+            <input type="text" placeholder="Search for products, brands and more">
+        </div>
+        <div class="header-icons">
+            <div class="icon-wrapper">
+                <a href="#"><img src="profile-icon.jpg" alt="Profile"></a>
+                <div class="icon-label">Profile</div>
+            </div>
+            <div class="icon-wrapper">
+                <a href="#"><img src="wishlist-icon.jpg" alt="Wishlist"></a>
+                <div class="icon-label">Wishlist</div>
+            </div>
+            <div class="icon-wrapper">
+                <a href="#"><img src="bag-icon.jpg" alt="Bag"></a>
+                <div class="icon-label">Bag</div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="introduction">
+            <h1>Discover Our Exclusive KPOP Basics Collection</h1>
+            <p>
+                Step into the world of KPOP fashion with our latest collection of basics, designed for fans who want to blend style with comfort. From oversized hoodies to graphic tees, each piece is crafted to make
+                you stand out.
+            </p>
+            <p>
+                Whether you're attending a concert, meeting up with friends, or simply expressing your love for KPOP, our collection has everything you need to showcase your fandom. Explore now and bring the KPOP vibe to your everyday look.
+            </p>
+        </div>
+        <div class="breadcrumb">
+            <a href="#">Home</a> / <a href="#">Clothing</a> / <a href="#">Kpop</a> <a href="#">Basics</a>
+        </div>
+        <div class="filters-container">
+            <div class="filters">
+                <div class="filter-buttons">
+                    <button id="clearFilters">Clear All</button>
+                </div>
+                <h4>Categories</h4>
+                <ul>
+                    <li><label><input type="checkbox" name="category" value="tops"> Tops (1501)</label></li>
+                    <li><label><input type="checkbox" name="category" value="tshirts"> Trousers (434)</label></li>
+                    <li><label><input type="checkbox" name="category" value="shirts"> Shirts (427)</label></li>
+                    <li><label><input type="checkbox" name="category" value="bodysuit"> Bodysuit (25)</label></li>
+                    <li><label><input type="checkbox" name="category" value="tunics"> Cardigans (4)</label></li>
+                </ul>
+                <h4>Brand</h4>
+                <ul>
+                    <li><label><input type="checkbox" name="brand" value="fabflee"> StyleCast X Slyck</label></li>
+                    <li><label><input type="checkbox" name="brand" value="baesd"> BAESD</label></li>
+                    <li><label><input type="checkbox" name="brand" value="roadster"> Roadster</label></li>
+                    <li><label><input type="checkbox" name="brand" value="chozi"> Trendyol</label></li>
+                    <li><label><input type="checkbox" name="brand" value="vimaljonney"> H&M</label></li>
+                    <li><label><input type="checkbox" name="brand" value="colorcapital"> Stylecast x Revolte</label></li>
+                    <li><label><input type="checkbox" name="brand" value="dressberry"> DressBerry</label></li>
+                    <li><label><input type="checkbox" name="brand" value="appulse">LULU & SKY</label></li>
+                </ul>
+            </div>
+            <div class="product-listing-container">
+                <div class="sort-by">
+                    <h4>Sort by:</h4>
+                    <select>
+                        <option value="recommended">Recommended</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="rating">Rating</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+                <div class="product-listing">
+                    <div class="product-item">
+                        <img src="pr1.jpg" alt="Product 1">
+                        <div class="product-details" onclick="window.location.href='https://www.myntra.com/trousers/lulu+%26+sky/lulu--sky-women-loose-fit-low-rise-cargo-trousers/27796786/buy';">
+                            <h3><strong>LULU & SKY</strong></h3><p>Women Loose Fit <br>Low-Rise Cargo <br>Trousers</p>
+                            <p>Rs. 2295 (63% OFF!)</p>
+                            <p class="product-price">Only Few Left!</p>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="pr2.jpg" alt="Product 2">
+                        <div class="product-details" onclick="window.location.href='https://www.myntra.com/trousers/lulusky/lulu--sky-women-straight-fit-high-rise-parallel-trousers/26505212/buy';">
+                            <h3><strong>LULU & SKY</strong></h3><p>Women Straight<br>Fit High-Rise<br>Parallel Trousers</p>
+                            <p>Rs. 3074 (58% OFF!)</p>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="pr3.jpg" alt="Product 3">
+                        <div class="product-details" onclick="window.location.href='https://www.myntra.com/sweaters/trendyol/trendyol-women-off-white--purple-printed-cardigan/19556304/buy';">
+                            <h3><strong>Trendyol</strong></h3><p>Women Off White <br>&<br>Purple Printed<br>Cardigan</p>
+                            <p>Rs. 1559 (40% OFF!)</p>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="pr4.jpg" alt="Product 4">
+                        <div class="product-details" onclick="window.location.href='https://www.myntra.com/tops/lulu26sky/lulu--sky-mock-collar-fitted-crop-top/25017178/buy';">
+                            <h3><strong>LULU & SKY</strong></h3><p>Mock Collar <br>Fitted Crop Top</p>
+                            <p>Rs. 1446 (58% OFF!)</p>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <img src="pr5.jpg" alt="Product 5">
+                        <div class="product-details" onclick="window.location.href='https://www.myntra.com/tops/lulu+&+sky/lulu--sky-blue-checked-styled-back-crop-top/26560214/buy';">
+                            <h3><strong>LULU & SKY</strong></h3><p>Tartan Checks<br>Boxy Fit<br>Cropped Shirt</p>
+                            <p>Rs. 1273 (58% OFF!)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // JavaScript for Clear All button
+        document.getElementById('clearFilters').addEventListener('click', function() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
