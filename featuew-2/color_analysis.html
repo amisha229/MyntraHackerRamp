@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Analysis</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .upload-form {
+            margin: 20px auto;
+            max-width: 400px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .upload-form input[type="file"] {
+            display: none;
+        }
+        .upload-form label {
+            background-color: #00C853;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .uploaded-image {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .color-palette div {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 5px;
+            display: inline-block;
+        }
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .header img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="C:\Users\swarn\OneDrive\Desktop\ICONS\13.jpg" alt="Myntra Icon">
+    </div>
+    <h1>Color Analysis</h1>
+    <div class="upload-form">
+        <input type="file" id="upload" accept="image/*">
+        <label for="upload">Upload an Image</label>
+        <div id="image-preview"></div>
+    </div>
+    <div class="results" id="results"></div>
+
+    <script>
+        const uploadInput = document.getElementById('upload');
+        const preview = document.getElementById('image-preview');
+        const results = document.getElementById('results');
+
+        uploadInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.className = 'uploaded-image';
+                    preview.innerHTML = '';
+                    preview.appendChild(img);
+
+                    const imageData = e.target.result;
+                    console.log("Sending image data:", imageData.slice(0, 30));  // Log the first 30 characters of the image data
+
+                    // Send image to the backend for analysis
+                    fetch('http://localhost:5000/analyze', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ image: imageData })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Received response:", data);  // Log the response data
+                        results.innerHTML = `
+                            <h2>Analysis Results</h2>
+                            <h3>${data.chosen_palette_name.replace('_', ' ').toUpperCase()}</h3>
+                            <div class="color-palette">
+                                ${data.chosen_palette.map(color => `
+                                    <div style="background-color: ${color}"></div>
+                                `).join('')}
+                            </div>
+                            <p>Skin Tone: ${data.skin_tone}</p>
+                            <p>Hair Color: ${data.hair_color}</p>
+                            <p>Undertone: ${data.undertone}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        results.innerHTML = '<p>There was an error analyzing the image.</p>';
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
