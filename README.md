@@ -17,9 +17,9 @@
 
 <h2 id="team-members">Team Members</h2>
     <ul>
-        <li>Amisha Singh - DSCE Bengaluru</li>
-        <li>Akriti Khetan - DSCE Bengaluru</li>
-        <li>Swarneem Ishu - DSCE Bengaluru</li>
+        <li>Amisha Singh - amisha229</li>
+        <li>Akriti Khetan - CupNoodles7</li>
+        <li>Swarneem Ishu - SwarneemIshu</li>
     </ul>
 
 <h2 id="problem-statement">Problem Statement</h2>
